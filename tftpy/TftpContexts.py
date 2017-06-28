@@ -14,6 +14,7 @@ from .TftpPacketTypes import *
 from .TftpPacketFactory import TftpPacketFactory
 from .TftpStates import *
 import socket, time, sys
+from StringIO import StringIO
 
 ###############################################################################
 # Utility classes
@@ -123,10 +124,11 @@ class TftpContext(object):
     def end(self):
         """Perform session cleanup, since the end method should always be
         called explicitely by the calling code, this works better than the
-        destructor."""
+        destructor. Don't close the fileobject if it's really a StringIO
+        instance, since then the data it contains is lost"""
         log.debug("in TftpContext.end")
         self.sock.close()
-        if self.fileobj is not None and not self.fileobj.closed:
+        if self.fileobj is not None and not self.fileobj.closed and not isinstance(self.fileobj, StringIO):
             log.debug("self.fileobj is open - closing")
             self.fileobj.close()
 
