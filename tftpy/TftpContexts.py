@@ -311,10 +311,10 @@ class TftpContextClientUpload(TftpContext):
                 log.debug("State is %s" % self.state)
                 self.cycle()
             except TftpTimeout as err:
-                log.error(str(err))
+                log.warn(str(err))
                 self.retry_count += 1
                 if self.retry_count >= TIMEOUT_RETRIES:
-                    log.debug("hit max retries, giving up")
+                    log.error("hit max retries, giving up")
                     raise
                 else:
                     log.warn("resending last packet")
@@ -391,10 +391,10 @@ class TftpContextClientDownload(TftpContext):
                 log.debug("State is %s" % self.state)
                 self.cycle()
             except TftpTimeout as err:
-                log.error(str(err))
+                log.warn(str(err))
                 self.retry_count += 1
                 if self.retry_count >= TIMEOUT_RETRIES:
-                    log.debug("hit max retries, giving up")
+                    log.error("hit max retries, giving up")
                     raise
                 else:
                     log.warn("resending last packet")
