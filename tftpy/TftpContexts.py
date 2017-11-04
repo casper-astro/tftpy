@@ -396,9 +396,9 @@ class TftpContextClientDownload(TftpContext):
                 if self.retry_count >= TIMEOUT_RETRIES:
                     log.error("hit max retries, giving up")
                     raise
-                else:
-                    log.warn("resending last packet")
-                    self.state.resendLast()
+                #else:
+                #    log.warn("resending last packet")
+                #    self.state.resendLast()
 
     def end(self):
         """Finish up the context."""
